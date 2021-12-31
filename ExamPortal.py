@@ -2,12 +2,9 @@ from flask import Flask, render_template, request
 from DBConnection import Db
 
 app = Flask(__name__)
-<<<<<<< HEAD
 
-=======
-# print("hi")
-#jkgj
->>>>>>> 38c45cb (Second commit)
+# uploo
+
 # @app.route('/')
 # def default():
 #     return 'Welcome to the Examination Portal'
