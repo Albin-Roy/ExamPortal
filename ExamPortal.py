@@ -50,34 +50,72 @@ def view_review():
 @app.route('/course_management')
 def course_management():
     return render_template('institution/course_management.html')
+@app.route('/course_mang_post', methods=['post'])
+def course_mang_post():
+    course_name = request.form['Submit']
+    return '''<script>alert('Course added successfully'); window.location='/course_management'</script> '''
+
 
 @app.route('/department_management')
 def department_management():
     return render_template('institution/department_management.html')
+@app.route('/dept_mang_post', methods=['post'])
+def dept_mang_post():
+    dept_name = request.form['Submit']
+    return '''<script>alert('Department added successfully'); window.location='/department_management'</script> '''
+
 
 @app.route('/hod_management')
 def hod_management():
     return render_template('institution/hod_management.html')
+@app.route('/hod_mang_post', methods=['post'])
+def hod_mang_post():
+    hod_name = request.form['Assign']
+    return '''<script>alert('HOD assigned successfully'); window.location='/hod_management'</script> '''
 
 @app.route('/manager_management')
 def manager_management():
     return render_template('institution/manager_management.html')
+@app.route('/mangr_mang_post', methods=['post'])
+def mangr_mang_post():
+    mangr_name = request.form['Submit']
+    return '''<script>alert('Added Manager successfully'); window.location='/manager_management'</script> '''
+
 
 @app.route('/registration')
 def registration():
     return render_template('institution/registration.html')
+@app.route('/registration_post', methods=['post'])
+def registration_post():
+    registration = request.form['Submit']
+    return '''<script>alert('Registration success'); window.location='/registration'</script> '''
 
 @app.route('/send_reply')
 def send_reply():
     return render_template('institution/send_reply.html')
+@app.route('/send_reply_post', methods=['post'])
+def send_reply_post():
+    institute_reply = request.form['Submit']
+    return '''<script>window.location='/send_reply'</script> '''
+
 
 @app.route('/staff_management')
 def staff_management():
     return render_template('institution/staff_management.html')
+@app.route('/staff_mang_post', methods=['post'])
+def staff_mang_post():
+    staff_name = request.form['Submit']
+    return '''<script>alert('Staff Added Successfully'); window.location='/staff_management'</script> '''
+
 
 @app.route('/subject_management')
 def subject_management():
     return render_template('institution/subject_management.html')
+@app.route('/subj_mang_post', methods=['post'])
+def subj_mang_post():
+    sub_name = request.form['Submit']
+    return '''<script>alert('Subject Added Successfully'); window.location='/subject_management'</script> '''
+
 
 @app.route('/upload_notification')
 def upload_notification():
@@ -136,7 +174,7 @@ def send_notification():
     return render_template('hod/send_notification.html')
 @app.route('/send_notif_post', methods=['post'])
 def send_notif_post():
-    hod_send_notf = request.form['Send']
+    hod_send_notif = request.form['Send']
     return '''<script>alert('Notification sent successfully');window.location='/send_notification'</script>'''
 
 @app.route('/subject_allocation')
