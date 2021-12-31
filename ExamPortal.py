@@ -3,6 +3,8 @@ from DBConnection import Db
 
 app = Flask(__name__)
 
+# uploo
+# jhgjhgjghjh
 # @app.route('/')
 # def default():
 #     return 'Welcome to the Examination Portal'
