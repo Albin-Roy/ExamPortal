@@ -1,15 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,session
 from DBConnection import Db
 
+
 app = Flask(__name__)
+app.secret_key= 'hey'
 
-# uploo
-# jhgjhgjghjh
-# @app.route('/')
-# def default():
-#     return 'Welcome to the Examination Portal'
 
-@app.route('/login')
+
+@app.route('/')
 def login():
     return render_template('/login.html')
 
@@ -17,38 +15,95 @@ def login():
 def login_post():
     user_name = request.form['textfield']
     pass_word = request.form['textfield2']
-    return '''<script>alert('Login Successfully');window.location='/home'</script>'''
+    a = Db()
+    qry = "SELECT * FROM login WHERE username='"+user_name+"' AND passwd='"+pass_word+"'"
+    res = a.selectOne(qry)
+    if res!=None:
+        session['login_id'] = res['lid']
+        type == res['type']
+        if res['type'] == 'admin':
+            return '''<script>alert('Login Successfully');window.location='/admin_home'</script>'''
+        # elif res['type'] == 'institution':
+        #     return '''<script>alert('Login Successfully');window.location='/institute_home'</script>'''
+        else:
+            return '''<script>alert('Invalid User');window.location='/</script>'''
+    else:
+        return '''<script>alert('Invalid User');window.location='/'</script>'''
 
-#-----------------ADMIN---------------------------------------------------------------
 
-@app.route('/')
+
+
+    return '''<script>alert('Login Successfull');window.location='/home'</script>'''
+
+#-----------------ADMIN------------------------------------------------------------------------
+
+@app.route('/admin_home')
 def home():
     return render_template('admin/home.html')
 
 
 @app.route('/incoming_requests')
 def incoming_requests():
-    return render_template('admin/incoming_requests.html')
+    a = Db()
+    qry = "SELECT institution.*,login.type FROM login INNER JOIN institution ON institution.lid=login.lid WHERE login.type='pending'"
+    res = a.select(qry)
+    return render_template('admin/incoming_requests.html',data=res)
 @app.route('/incoming_req_post',methods=['post'])
 def incoming_req_post():
-    query = request.form['textfield']
-    return '''<script>window.location='/incoming_requests'</script>'''
+    name = request.form['textfield']
+    a = Db()
+    qry = "SELECT institution.*,login.type FROM login INNER JOIN institution ON institution.lid=login.lid WHERE login.type='pending' and institution.name LIKE '%"+name+"%'"
+    res = a.select(qry)
+    return render_template('admin/incoming_requests.html',data=res)
+@app.route('/incoming_req_approve/<id>')
+def incoming_req_approve(id):
+    a = Db()
+    qry= "UPDATE login SET type='institution' WHERE lid='"+id+"'"
+    res = a.update(qry)
+    return '''<script>alert('Approved');window.location='/incoming_requests'</script>'''
+
+
 
 @app.route('/view_accepted')
 def view_accepted():
-    return render_template('admin/view_accepted.html')
+    a = Db()
+    qry = "SELECT institution.*,login.type FROM login INNER JOIN institution ON institution.lid=login.lid WHERE login.type='institution'"
+    res = a.select(qry)
+    return render_template('admin/view_accepted.html', data=res)
+@app.route('/incoming_req_reject/<id>')
+def incoming_req_reject(id):
+    a=Db()
+    qry= "UPDATE login SET type='rejected' WHERE lid='"+id+"'"
+    res = a.update(qry)
+    return '''<script>alert('Rejected');window.location='/incoming_requests'</script>'''
 
 @app.route('/view_rejected')
 def view_rejected():
-    return render_template('admin/view_rejected.html')
+    a = Db()
+    qry = "SELECT institution.*,login.type FROM login INNER JOIN institution ON institution.lid=login.lid WHERE login.type='rejected'"
+    res = a.select(qry)
+    return render_template('admin/view_rejected.html', data=res)
 
 @app.route('/view_review')
 def view_review():
-    return render_template('admin/view_review.html')
+    a = Db()
+    qry = "SELECT review.*,manager.name FROM manager INNER JOIN review ON review.lid=manager.lid"
+    res = a.select(qry)
+    return render_template('admin/view_review.html',data=res)
+
+@app.route('/change_password')
+def change_password():
+    return render_template('admin/change_password.html')
+@app.route('/change_pass_post',methods=['post'])
+def change_pass_post():
+    password = request.form['Change']
+    return '''<script>alert('Password Changed'); window.location='/change_password'</script> '''
+
 
 
 
 #-------------------INSTITUTION-----------------------------------------------------------
+
 @app.route('/course_management')
 def course_management():
     return render_template('institution/course_management.html')
@@ -122,13 +177,23 @@ def subj_mang_post():
 @app.route('/upload_notification')
 def upload_notification():
     return render_template('institution/upload_notification.html')
+@app.route('/upload_notif_post', methods=['post'])
+def upload_notif_post():
+    inst_upload_notif = request.form['Submit']
+    return '''<script>alert('Notification Uploaded'); window.location='/upload_notification'</script> '''
 
 @app.route('/view_complaint')
 def view_complaint():
     return render_template('institution/view_complaint.html')
+@app.route('/view_complaint_post', methods=['post'])
+def view_complaint_post():
+    inst_complaint = request.form['Reply']
+    return '''<script>alert('Replied Successfully'); window.location='/view_complaint'</script> '''
+
 @app.route('/view_profile')
 def view_profile():
     return render_template('institution/view_profile.html')
+
 
 #-------------------------MANAGER--------------------------------------------------------------------
 @app.route('/manager_view_profile')

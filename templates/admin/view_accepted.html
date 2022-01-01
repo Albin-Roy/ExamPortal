@@ -15,13 +15,16 @@
       <td width="48">Contact</td>
       <td width="53">Email &amp; Website</td>
     </tr>
+    {%for i in data%}
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>&nbsp;{{ loop.index }}</td>
+      <td>&nbsp;{{ i['name'] }}</td>
+      <td>&nbsp;{{ i['place'] }}<br/>{{ i['post'] }}<br/>{{ i['pin'] }}<br/>{{ i['district'] }}</td>
+      <td>&nbsp;{{ i['contact1'] }}<br/>{{ i['contact2'] }}</td>
+      <td>&nbsp;{{ i['email'] }}<br/>{{ i['website'] }}</td>
+      <td><a href="/incoming_req_reject/{{ i['lid'] }}">Reject</a></td>
     </tr>
+    {% endfor %}
   </table>
 </form>
 </body>
