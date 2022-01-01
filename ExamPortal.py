@@ -4,7 +4,7 @@ from DBConnection import Db
 app = Flask(__name__)
 
 
-# @app.route('/')
+# @app.route('/')  
 # def default():
 #     return 'Welcome to the Examination Portal'
 
