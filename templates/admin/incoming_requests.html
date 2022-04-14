@@ -1,43 +1,36 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
+{% extends 'admin.html' %}
+{% block body %}
 <form id="form1" name="form1" method="post" action="/incoming_req_post">
-  <p>&nbsp;</p>
-  <table width="200" border="1">
+  <table class="pull-right" style="width:500px">
     <tr>
-      <td><input type="text" name="textfield" id="textfield" /></td>
-      <td><input type="submit" name="button" id="button" value="Search
-      " /></td>
+      <th><input type="text" name="textfield" id="textfield" class="form-control" /></th>
+      <th><input type="submit" name="button" id="button" value="Search" class="btn btn-success"/></th>
     </tr>
   </table>
   <p>&nbsp;</p>
-  <table border="1">
+  <table class="table table-bordered">
     <tr>
-      <td>#</td>
-      <td>Institution Name</td>
-      <td>Address</td>
-      <td>Contact</td>
-      <td>Email &amp; Website</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <th>#</th>
+      <th>Institution Name</th>
+      <th>Address</th>
+      <th>Contact</th>
+      <th>Email &amp; Website</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
     </tr>
     {% for i in data %}
     <tr>
       <td>{{ loop.index }}</td>
-      <td>{{ i['name'] }}</td>
+      <td>{{ i['name'] }}
+        <br><img src="{{ i['image'] }}" width="100%" height="100%">
+      </td>
       <td>&nbsp;{{ i['place'] }}<br/>{{ i['post'] }}<br/>{{ i['pin'] }}<br/>{{ i['district'] }}</td>
       <td>&nbsp;{{ i['contact1'] }}<br/>{{ i['contact2'] }}</td>
       <td>&nbsp;{{ i['email'] }}<br/>{{ i['website'] }}</td>
-      <td><a href="/incoming_req_approve/{{ i['lid'] }}">Accept</a></td>
-      <td><a href="/incoming_req_reject/{{ i['lid'] }}">Reject</a></td>
+      <td><a href="/incoming_req_approve/{{ i['lid'] }}" class="btn btn-success">Accept</a></td>
+      <td><a href="/incoming_req_rejected/{{ i['lid'] }}" class="btn btn-danger">Reject</a></td>
     </tr>
     {% endfor %}
   </table>
 </form>
-</body>
-</html>
+{% endblock %}

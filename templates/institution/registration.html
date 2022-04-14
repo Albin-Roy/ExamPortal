@@ -1,52 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
+{% extends 'institution.html' %}
+{% block body %}
 <form id="form1" name="form1" method="post" action="/registration_post">
-  <table width="247" border="1">
+  <table class="table table-bordered">
     <tr>
-      <td width="106">Institution Name</td>
-      <td width="125"><label for="institution"></label>
-      <input type="text" name="institution" id="institution" /></td>
+      <th width="106">Institution Name</th>
+      <td width="125">
+      <input type="text" name="institution" id="institution" class="form-control" required /></td>
     </tr>
     <tr>
-      <td>Place</td>
-      <td><label for="place"></label>
-      <input type="text" name="place" id="place" /></td>
+      <th>Place</th>
+      <td>
+      <input type="text" name="place" id="place" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>Pin</td>
+      <th>Pin</th>
       <td><label for="pin"></label>
-      <input type="text" name="pin" id="pin" /></td>
+      <input type="text" name="pin" id="pin" class="form-control" required/></td>
     </tr>
     <tr>
-      <td> Post</td>
+      <th> Post</th>
       <td><label for="post"></label>
-      <input type="text" name="post" id="post" /></td>
+      <input type="text" name="post" id="post" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>District</td>
+      <th>District</th>
       <td><label for="district"></label>
-      <input type="text" name="district" id="district" /></td>
+      <input type="text" name="district" id="district" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>Contact</td>
+      <th>Contact</th>
       <td><label for="contact"></label>
-      <input type="text" name="contact" id="contact" /></td>
+      <input type="text" name="contact" id="contact" class="form-control" required /></td>
     </tr>
     <tr>
-      <td>Email</td>
+      <th>Email</th>
       <td><label for="email"></label>
-      <input type="text" name="email" id="email" /></td>
+      <input type="text" name="email" id="email" class="form-control" required /></td>
     </tr>
     <tr>
-      <td>Website</td>
+      <th>Website</th>
       <td><label for="website"></label>
-      <input type="text" name="website" id="website" /></td>
+      <input type="text" name="website" id="website" class="form-control" /></td>
     </tr>
     <tr>
       <td colspan="2"><div align="center">
@@ -56,5 +50,4 @@
     </tr>
   </table>
 </form>
-</body>
-</html>
+{% endblock %}

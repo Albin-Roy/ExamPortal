@@ -1,50 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
+{% extends 'institution.html' %}
+{% block body %}
 <form id="form1" name="form1" method="post" action="/staff_mang_post">
-  <table width="275" border="1">
+  <table class="table table-bordered">
     <tr>
-      <td width="107">Teacher Name</td>
-      <td width="152"><label for="teacher"></label>
-      <input type="text" name="teacher" id="teacher" /></td>
+      <th width="107">Teacher Name</th>
+      <td width="152">
+      <input type="text" name="teacher" id="teacher" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>Department </td>
-      <td><label for="department"></label>
-        <select name="department" id="department">
+      <th>Department </th>
+      <td>
+        <select name="department" id="department" class="form-control" required>
       </select></td>
     </tr>
     <tr>
-      <td>Date of Birth</td>
-      <td><input type="date" name="textfield2" id="textfield2" /></td>
+      <th>Date of Birth</th>
+      <td><input type="date" name="textfield2" id="textfield2" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>Qualification</td>
-      <td><label for="qualification"></label>
-      <input type="text" name="qualification" id="qualification" /></td>
+      <th>Qualification</th>
+      <td>
+      <input type="text" name="qualification" id="qualification" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>Contact</td>
-      <td><label for="contact"></label>
-      <input type="text" name="contact" id="contact" /></td>
+      <th>Contact</th>
+      <td>
+      <input type="text" name="contact" id="contact" class="form-control" /></td>
     </tr>
     <tr>
-      <td>Email</td>
-      <td><label for="email"></label>
-      <input type="text" name="email" id="email" /></td>
+      <th>Email</th>
+      <td>
+      <input type="text" name="email" id="email" class="form-control" required/></td>
     </tr>
     <tr>
       <td colspan="2"><div align="center">
-        <input type="submit" name="Submit" id="Submit" value="Add" />
-        <input type="submit" name="Reset" id="Reset" value="Reset" />
+        <input type="submit" name="Submit" id="Submit" value="Add" class="btn btn-success" />
+        <input type="submit" name="Reset" id="Reset" value="Reset" class="btn btn-info"/>
       </div></td>
     </tr>
   </table>
 </form>
-</body>
-</html>
+{% endblock %}

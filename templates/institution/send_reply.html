@@ -1,31 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
+{% extends 'institution.html' %}
+{% block body %}
 
-<body>
-<form id="form1" name="form1" method="post" action="/send_reply_post">
+    <form id="form1" name="form1" method="post" action="/send_comp_reply_post">
+  <table class="table table-borderless" style="width:700px;height:200px" align="center">
+
+    <input type="hidden" name="comp_id" id="comp_id" value="{{ reply['comp_id'] }}" required/>
+
+    <tr>
+      <td>
+      <textarea name="text" id="text" cols="45" rows="5" class="form-control" required></textarea></td>
+    </tr>
+    <tr>
+      <td><div align="center">
+        <input type="submit" name="Submit" id="Submit" value="Send" class="btn btn-success"/>
+      </div></td>
+    </tr>
+  </table>
 </form>
-<table width="550" height="128" border="1">
-  <tr>
-    <td width="82">#</td>
-    <td width="82" height="33">Name</td>
-    <td width="29">Position</td>
-    <td width="62">Complaint</td>
-    <td width="283" colspan="2">Reply</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td height="87">&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td><form id="form2" name="form2" method="post" action="/send_reply_post">
-      <textarea name="text" id="text" cols="45" rows="5"></textarea>
-      <input type="submit" name="Submit" id="Submit" value="Reply" />
-    </form></td>
-  </tr>
-</table>
-</body>
-</html>
+{% endblock %}

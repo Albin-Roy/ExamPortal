@@ -1,41 +1,53 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
+{% extends 'teacher.html' %}
+{% block body %}
+<form id="form1" name="form1" method="post" action="/t_exam_notif_post">
+  <table  class="table table-bordered">
 
-<body>
-<form id="form1" name="form1" method="post" action="">
-  <table  border="1">
     <tr>
-      <td width="87">#</td>
-      <td width="75">&nbsp;</td>
+      <th>Subject Name</th>
+      <td>
+        <select name="select" id="select" class="form-control" required>
+          {%  for i in res %}
+          <option value="{{ i['sub_id']  }}">{{ i['sub_name'] }}</option>
+          {% endfor %}
+      </select></td>
     </tr>
     <tr>
-      <td>Subject Name</td>
-      <td>&nbsp;</td>
+      <th>Exam Name</th>
+      <td>
+      <input type="text" name="textfield3" id="textfield3" class="form-control" required /></td>
     </tr>
     <tr>
-      <td>Exam Name</td>
-      <td>&nbsp;</td>
+      <th>Exam Date</th>
+      <td>
+      <input type="date" name="textfield4" id="textfield4" class="form-control" required/></td>
+    </tr>
+     <tr>
+      <th>Exam time</th>
+      <td>
+      <input type="time" name="textfield5" id="textfield5" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>Exam Date &amp; Time</td>
-      <td>&nbsp;</td>
+      <th>Portions</th>
+      <td>
+        <label for="textarea"></label>
+      <textarea name="textarea" id="textarea" cols="45" rows="5" class="form-control" ></textarea></td>
     </tr>
     <tr>
-      <td>Portions</td>
-      <td>&nbsp;</td>
+      <th>Exam Type</th>
+      <td><label for="type"></label>
+        <select name="type" id="type" class="form-control" required>
+          <option value="Optional">Optional</option>
+          <option value="Viva">Viva</option>
+      </select></td>
     </tr>
     <tr>
       <td colspan="2"><div align="center">
-        <input type="submit" name="Submit" id="Submit" value="Submit" />
-        <input type="submit" name="Reset" id="Reset" value="Reset" />
+        <input type="submit" name="Submit" id="Submit" value="Submit" class="btn btn-success"/>
+<!--        <input type="submit" name="Reset" id="Reset" value="Reset" />-->
       </div></td>
     </tr>
    
   </table>
 </form>
-</body>
-</html>
+{% endblock %}

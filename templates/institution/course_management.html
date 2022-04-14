@@ -1,31 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
+{% extends 'institution.html' %}
+{% block body %}
 <form id="form1" name="form1" method="post" action="/course_mang_post">
-  <table width="348" border="1">
+  <table class="table table-borderless" style="width:700px;height:100px" align="center">
     <tr>
-      <td width="108">Department Name</td>
-      <td width="109"><label for="Department"></label>
-        <select name="Department" id="Department">
-      </select></td>
+      <th >Department Name</th>
+      <th >
+        <select name="Department" id="Department" class="form-control">
+          <option>--select--</option>
+          {% for i in dept %}
+          <option value="{{ i['dept_id'] }}">{{ i['dname'] }} </option>
+          {% endfor %}
+      </select></th>
     </tr>
     <tr>
-      <td>Course Name</td>
-      <td><label for="Course"></label>
-      <input type="text" name="Course" id="Course" /></td>
+      <th>Course Name</th>
+      <td>
+      <input type="text" name="Course" id="Course" value="{{ dept['course_name'] }}" class="form-control" required/></td>
     </tr>
     <tr>
       <td colspan="2"><div align="center">
-        <input type="submit" name="Submit" id="Submit" value="Add Course" /> 
-        <input type="submit" name="Reset" id="Reset" value="Reset" />
+        <input type="submit" name="Submit" id="Submit" value="Add Course" class="btn btn-success"/>
+<!--        <input type="submit" name="Reset" id="Reset" value="Reset" />-->
       </div></td>
     </tr>
   </table>
 </form>
-</body>
-</html>
+{% endblock %}

@@ -1,59 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
+{% extends 'institution.html' %}
+{% block body %}
 <form id="form1" name="form1" method="post" action="">
-  <table width="348" border="1">
+  <table class="table table-bordered">
+
     <tr>
-      <td width="170">Name</td>
-      <td width="162">&nbsp;</td>
+      <td colspan="2"><img src="{{ profile['image'] }}" alt="img"  height="100%" width="100%" ></td>
+    </tr>
+
+    <tr>
+      <th width="170">Name</th>
+      <td width="162">{{ profile['name'] }}</td>
     </tr>
     <tr>
-      <td>Place</td>
-      <td>&nbsp;</td>
+      <th>Contact</th>
+      <td> {{ profile['contact1'] }} <br/> {{ profile['contact2'] }}</td>
     </tr>
     <tr>
-      <td>Pin</td>
-      <td>&nbsp;</td>
+      <th>Email</th>
+      <td>&nbsp;{{ profile['email'] }}</td>
     </tr>
     <tr>
-      <td> Post</td>
-      <td>&nbsp;</td>
+      <th>Website</th>
+      <td>&nbsp;{{ profile['website'] }}</td>
     </tr>
     <tr>
-      <td>District</td>
-      <td>&nbsp;</td>
+      <th>Address</th>
+      <td>{{ profile['place'] }}<br/>{{ profile['post'] }}<br/>{{ profile['district'] }}<br/>{{ profile['pin'] }}<br/></td>
     </tr>
     <tr>
-      <td>Contact</td>
-      <td>&nbsp;</td>
+      <td colspan="2" align="center"><a href="/edit_profile" class="btn btn-info">Edit Your Profile</a></td>
     </tr>
-    <tr>
-      <td>Email</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>Website</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>Login ID</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="2"><div align="center">
-        <input type="submit" name="EDIT" id="EDIT" value="EDIT" />
-       
-      </div></td>
-    </tr>
+
   </table>
 
 
 </form>
 
-</body>
-</html>
+{% endblock %}

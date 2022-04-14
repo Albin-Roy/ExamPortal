@@ -1,54 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
-<form action="" method="get">
-
-<table border="1">
-  <tr>
-    <td width="103">#</td>
-    <td width="106">&nbsp;</td>
-   
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>&nbsp;</td>
-   
-  </tr>
-  <tr>
-    <td>DOB</td>
-    <td>&nbsp;</td>
-   
-  </tr>
-  <tr>
-    <td>Qualification</td>
-    <td>&nbsp;</td>
-    
-  </tr>
-  <tr>
-    <td>Contacts</td>
-    <td>&nbsp;</td>
-    
-  </tr>
-  <tr>
-    <td>Email</td>
-    <td>&nbsp;</td>
-      </tr>
-  <tr>
-    <td>Address</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan="2"><div align="center">
-      <input type="submit" name="EDIT" id="EDIT" 
-    value="EDIT" />
-    </div></td>
+{% extends 'manager.html' %}
+{% block body %}
+<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+  <table class="table table-bordered">
+    <tr>
+      <th width="105"> Name</th>
+      <td width="95">&nbsp;
+        <img src="{{ profile['image'] }}" alt="img"  height="100%" width="100%" >
+        {{ profile['name'] }}</td>
     </tr>
-</table>
+    <tr>
+      <th>Date of Birth</th>
+      <td>&nbsp;{{ profile['dob'] }}</td>
+
+    <tr>
+    <th>Gender</th>
+    <td>&nbsp;{{ profile['gender'] }}</td>
+  </tr>
+    <tr>
+      <th>Qualification</th>
+      <td>{{ profile['qualification'] }}</td>
+    </tr>
+    <tr>
+      <th>Contact</th>
+      <td>{{ profile['contact1'] }} <br/>{{ profile['contact2'] }}</td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td>{{ profile['email'] }}</td>
+    </tr>
+    <tr>
+      <th>Address</th>
+      <td>{{ profile['place'] }}<br/> {{ profile['post'] }} <br/> {{ profile['district'] }} <br/>{{  profile['pin'] }}</td>
+    </tr>
+    <tr>
+      <td colspan="2"><div align="center">
+      <a href="/m_edit_profile" class="btn btn-info">Edit Profile</a></div></td>
+    </tr>
+  </table>
 </form>
-</body>
-</html>
+{% endblock %}
