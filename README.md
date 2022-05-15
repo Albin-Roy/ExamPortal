@@ -36,6 +36,26 @@ Examination Portal helps students to offer a quick and easy way to appear for th
 
 
 
+## Modules
+
+1. General
+
+2. Admin
+
+3. Institution
+
+4. Manager
+
+5. HOD
+
+6. Teacher
+
+7. Student
+
+
+
+
+
 ## Technologies Used
 
 - html
