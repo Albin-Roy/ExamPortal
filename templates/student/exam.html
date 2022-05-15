@@ -5,7 +5,16 @@
     <tr><input type="hidden" name="examid" value="{{ m['examid'] }}"/>
       <input type="hidden" name="stud_id" value="{{ stud['stud_id'] }}"/>
       <input type="hidden" name="question_id" value="{{ m['qid'] }}"/>
-      <td>&nbsp;{{ m['question'] }}</td>
+      <td>&nbsp;
+
+
+      <div class="row">
+        <div class="col-9">{{ m['question'] }}</div>
+        <div class="col-3">Remaining Questions - {{ session.ab }}</div>
+      </div>
+
+
+      </td>
     </tr>
     <tr>
       <td>

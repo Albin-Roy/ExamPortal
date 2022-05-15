@@ -34,13 +34,12 @@ def login_post():
     user_name = request.form['textfield']
     pass_word = request.form['textfield2']
     a = Db()
-    qry = "SELECT * FROM login WHERE username='"+user_name+"' AND passwd='"+pass_word+"'"
-    res = a.selectOne(qry)
+    qry = "SELECT * FROM login WHERE username= %s AND passwd= %s "
+    res = a.login(qry, user_name, pass_word)
     if res!=None:
         session['login_id'] = res['lid']
         type = res['type']
         if res['type'] == 'admin':
-            flash("Login Successful")
             return '''<script>window.location='/admin_home'</script>'''
         elif res['type'] == 'institution':
             return '''<script>window.location='/institution_home'</script>'''
@@ -53,9 +52,11 @@ def login_post():
         elif res['type'] == 'student':
             return '''<script>window.location='/st_home_student'</script>'''
         else:
-            return '''<script>alert('Invalid User');window.location='/login</script>'''
+            flash("Wrong username or password", "danger")
+            return '''<script>window.location='/login</script>'''
     else:
-        return '''<script>alert('Invalid User');window.location='/login'</script>'''
+        flash("Wrong username or password, please try again.", "danger")
+        return '''<script>window.location='/login'</script>'''
 
 
 
@@ -392,7 +393,7 @@ def hod_mang_post():
     qry1 = "SELECT username FROM login WHERE lid ='"+str(session['login_id'])+"' "
     res1 = a.selectOne(qry1)
 
-    uname= "hod"+res3['name']
+    uname= "hod"+res3['email']
     password= random.randint(1000,2000)
 
     qry2= "INSERT INTO login(`username`,`passwd`,`type`) VALUES('"+uname+"','"+str(password)+"','hod')"
@@ -1041,7 +1042,10 @@ def m_view_students():
 def m_view_stud_post():
     search = request.form['text']
     a = Db()
-    qry = "SELECT * FROM `student` INNER JOIN `parent` ON `parent`.`par_id`=`student`.`par_id` INNER JOIN course ON `course`.`course_id`=`student`.`course_id` WHERE inst_lid='"+str(session['login_id'])+"' AND student.name LIKE '%"+search+"%' "
+    mlid = str(session['login_id'])
+    qrym = "SELECT inst_lid FROM `manager` WHERE `lid`='" + str(mlid) + "'"
+    resm = a.selectOne(qrym)
+    qry = "SELECT * FROM `student` INNER JOIN `parent` ON `parent`.`par_id`=`student`.`par_id` INNER JOIN course ON `course`.`course_id`=`student`.`course_id` WHERE inst_lid='"+str(resm['inst_lid'])+"' AND student.name LIKE '%"+search+"%' "
     res = a.select(qry)
     return render_template('manager/view_students.html',student=res)
 @app.route('/m_edit_student/<s_id>')
@@ -1313,11 +1317,12 @@ def hod_subject_allocation():
     a= Db()
     qry = "SELECT * FROM department INNER JOIN course ON department.dept_id=course.dept_id INNER JOIN hod ON hod.dept_id=department.dept_id WHERE `hod`.`hod_lid`='"+str(session['login_id'])+"' "
     res = a.select(qry)
-    qry1= "SELECT * FROM subject"
+    qry1= "SELECT * FROM SUBJECT INNER JOIN course ON course.course_id=subject.course_id INNER JOIN department ON department.dept_id=course.dept_id INNER JOIN hod ON hod.dept_id=department.dept_id WHERE hod.hod_lid='"+str(session['login_id'])+"'"
     res1= a.select(qry1)
-    qry2= "SELECT * FROM teacher"
+    qry2= "SELECT * FROM teacher INNER JOIN department ON department.dept_id=teacher.dept_id INNER JOIN hod ON hod.dept_id=department.dept_id WHERE hod.hod_lid='"+str(session['login_id'])+"'"
     res2= a.select(qry2)
-    qry3 = "SELECT * FROM course"
+    qry3 = "SELECT * FROM course INNER JOIN department ON department.dept_id=course.dept_id INNER JOIN hod ON hod.dept_id=department.dept_id WHERE hod.hod_lid='"+str(session['login_id'])+"'"
+    print(qry3)
     res3 = a.select(qry3)
     return render_template('hod/subject_allocation.html',alloc=res,subject=res1,teacher=res2,course=res3)
 @app.route('/hod_sub_alloc_post', methods=['post'])
@@ -1518,7 +1523,7 @@ def t_delete_exam_question(id):
     db = Db()
     res = db.delete(qry)
 
-    return "Question deleted"
+    return '''<script>window.location='t_view_exam_question'</script>'''
 
 
 
@@ -1916,6 +1921,10 @@ def st_exam(e_id):
     a = Db()
     qry = "SELECT * FROM questions WHERE examid='"+e_id+"' order by qid ASC"
     res =a.select(qry)
+
+    session['ab']= len(res)
+
+
     qry1 = "SELECT stud_id FROM student WHERE student.lid='"+str(session['login_id'])+"'"
     res1 = a.selectOne(qry1)
     if len(res)>0:
@@ -1939,7 +1948,7 @@ def st_exam_post():
     print(resanswer['answer'])
     print(answer)
 
-
+    session['ab']= int(session['ab'])-1
 
 
     if resanswer['answer']==answer:
@@ -1957,10 +1966,12 @@ def st_exam_post():
     a= Db()
     qry="SELECT * FROM questions WHERE examid='"+exam_id+"' and  qid>"+question_id
     res = a.select(qry)
+    qry1 = "SELECT stud_id FROM student WHERE student.lid='" + str(session['login_id']) + "'"
+    res1 = a.selectOne(qry1)
     if len(res)>0:
 
         m=res[0]
-        return render_template('student/exam.html', m=m)
+        return render_template('student/exam.html', m=m,stud=res1)
 
     else:
         qry = " INSERT INTO results(`exam_id`,`stud_id`,`result`) VALUES('" + exam_id + "','" + stud_id + "','" + session["score"] + "')"
@@ -2105,4 +2116,4 @@ def analysis():
 
     return jsonify(status="ok")
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True)

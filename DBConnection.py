@@ -10,6 +10,10 @@ class Db:
         self.cur.execute(q)
         return self.cur.fetchall()
 
+    def login(self, q, username, password):
+        self.cur.execute(q, (username, password,))
+        return self.cur.fetchone()
+
     def selectOne(self, q):
         self.cur.execute(q)
         return self.cur.fetchone()

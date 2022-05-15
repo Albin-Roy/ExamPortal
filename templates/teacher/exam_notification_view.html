@@ -37,7 +37,7 @@
     {% else %}
     <td><a href="/t_edit_exam_notification_view/{{ i['exam_id'] }}" class="btn btn-info">Edit</a></td>
     <td> <a href="/t_upload_exam/{{ i['exam_id'] }}" class="btn btn-success">Add Questions</a></td>
-    <td> <a href="/t_view_exam_question/{{ i['exam_id']  }}" class="btn btn-success">View Questions</a></td>
+    <td> <a href="/t_view_exam_question/{{ i['exam_id']  }}" class="btn btn-info">View Questions</a></td>
     <td> <a href="/view_results/{{ i['exam_id']  }}" class="btn btn-success">Result</a></td>
     <td> <a href="/delete_exam/{{ i['exam_id']  }}" class="btn btn-danger" onclick="return confirm('Do you want to delete this?')">Delete</a></td>
     {% endif %}
